@@ -1,0 +1,53 @@
+# =============== #
+# Unity generated #
+# =============== #
+Library/
+Temp/
+Assets/UnityVS/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============ #
+# Unity VS	   #
+# ============ #
+Assets/UnityVS.meta
+*.DotSettings
+version.txt
+Build/
+AssetBundles/
+NativePlugins/PushNotification/bin/
+NativePlugins/PushNotification/gen/
+Assets/StreamingAssets/android/
+Assets/StreamingAssets/ios/
+Assets/StreamingAssets/web/
+Assets/TmpScenes/
+Assets/TmpScenes.meta
+Assets/UnityPlugins/TexturePacker/Editor/SettingsTexturePackerImporter.asset
+Assets/UnityPlugins/TexturePacker/Editor/SettingsTexturePackerImporter.txt
+NativePlugins/SystemHelper/bin/
+
+*.apk
