@@ -64,7 +64,7 @@ public class JoinGame : MonoBehaviour
 					else
 					{
 						roomList = null;
-						manager.matchMaker.ListMatches(pageNum, 10, "", OnMatchList);
+						manager.matchMaker.ListMatches(pageNum, 10, "", true, 0, 0, OnMatchList);
 					}
 				}
 			}
@@ -73,7 +73,7 @@ public class JoinGame : MonoBehaviour
 			{
 				pageNum += 1;
 				roomList = null;
-				manager.matchMaker.ListMatches(pageNum, 10, "", OnMatchList);
+				manager.matchMaker.ListMatches(pageNum, 10, "", true, 0, 0, OnMatchList);
 			}
 			posY += 40;
 		}
