@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7a500b70581b1264b9bc508595a8559e
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - tankCombat: {instanceID: 0}
+  - front: {fileID: 2800000, guid: 802e94802ae26564c83f22499a3b288f, type: 3}
+  - back: {fileID: 2800000, guid: 285e3c6fca45386409953569338d68f4, type: 3}
+  - left: {fileID: 2800000, guid: dd8d81e8ba6e90f4882a504be10c181d, type: 3}
+  - right: {fileID: 2800000, guid: 97c8e1db27c289a499fa0fc11009833a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
