@@ -51,3 +51,6 @@ Assets/UnityPlugins/TexturePacker/Editor/SettingsTexturePackerImporter.txt
 NativePlugins/SystemHelper/bin/
 
 *.apk
+
+build*/
+*.exe
