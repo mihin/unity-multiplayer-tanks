@@ -23,16 +23,16 @@ public class JoinGame : MonoBehaviour
 	{
         if (!success)
         {
-            Debug.LogWarning("JoinGame :: Match List unsuccessful");
+            Debug.LogWarning("JoinGame :: Match List unsuccessful, extendedInfo:\n" + extendedInfo);
             return;
         }
         if (matchList == null)
         {
-            Debug.LogWarning("JoinGame :: null Match List returned from server");
+            Debug.LogWarning("JoinGame :: null Match List returned from server, extendedInfo:\n" + extendedInfo);
             return;
         }
 
-        Debug.Log("JoinGame :: Match List successful, extendedInfo = " + extendedInfo + ", data: " + matchList);
+        Debug.Log("JoinGame :: Match List successful, extendedInfo:\n" + extendedInfo + ", data: " + matchList);
         roomList = matchList;
 	}
 	

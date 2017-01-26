@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking;
 using UnityEngine.Networking.Match;
@@ -31,7 +32,7 @@ public class HostGame : MonoBehaviour
 			if(GUI.Button(new Rect(Screen.width/2-60,posY,120,30),"Create Room"))
 			{
 				Debug.Log ("Creating match [" + roomName + ":" + roomSize + "]");
-				NetworkManager.singleton.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, NetworkManager.singleton.OnMatchCreate);
+			    NetworkManager.singleton.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, OnMatchCreate);
 			}
 		}
 		
@@ -40,5 +41,11 @@ public class HostGame : MonoBehaviour
 		{
 			NetworkManager.singleton.ServerChangeScene("title");
 		}
-	}	
+	}
+
+    private void OnMatchCreate(bool success, string extendedInfo, MatchInfo responseData)
+    {
+        Debug.Log("OnMatchCreate success?=" + success + ", extendedInfo = " + extendedInfo + ", responseData = " + responseData);
+        NetworkManager.singleton.OnMatchCreate(success, extendedInfo, responseData);
+    }
 }
