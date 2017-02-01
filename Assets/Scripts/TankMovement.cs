@@ -166,7 +166,21 @@ public class TankMovement : NetworkBehaviour
 	
 	void HandlePlayerMovement()
 	{
-		int spin = 0;
+        float spin = 0;
+#if UNITY_ANDROID
+        Vector2 movement = HandleMovement();
+	    spin += -movement.x;
+
+     //   if (movement.x > 0)
+	    //{
+     //       spin += 1;
+     //   } else if (movement.x < 0)
+     //   {
+     //       spin -= 1;
+     //   }
+
+	    float moveForce = movement.y;
+#else
 		if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			spin += 1;
@@ -176,7 +190,9 @@ public class TankMovement : NetworkBehaviour
 			spin -= 1;
 		}
 		float moveForce = Input.GetAxis("Vertical");
-		if (moveForce > 0) { moveForce = 1; }
+#endif
+
+        if (moveForce > 0) { moveForce = 1; }
 		if (moveForce < 0) { moveForce = -1; }
 		
 		if (oldMoveForce != moveForce || oldSpin != spin)
@@ -187,7 +203,18 @@ public class TankMovement : NetworkBehaviour
 		}
 	}
 
-	[Command]
+    public Vector2 HandleMovement ()
+    {
+        IJoystick handle = MoveJoystick.Instance;
+        if (handle == null)
+            return Vector2.zero;
+
+        Vector3 p = MoveJoystick.Instance.GetMovePosition();
+        p.Normalize();
+        return new Vector2(p.x, p.z);
+    }
+
+    [Command]
 	public void CmdRotateTurret(float angle)
 	{
 		if (!tc.alive)
@@ -204,7 +231,7 @@ public class TankMovement : NetworkBehaviour
 
 	
 	[Command]
-	public void CmdThrust(float thrusting, int spin)
+	public void CmdThrust(float thrusting, float spin)
 	{	
 		if (PlayGame.GetComplete() || !tc.alive) {
 			this.thrusting = 0;
