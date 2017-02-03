@@ -20,6 +20,7 @@ internal class MoveJoystick : IJoystick
     protected Vector2 fingerCurrPos;
     protected Vector2 fingerDownPos;
     private static Material material = null;
+    private Transform mainCamera;
 
     public event Action<Vector2> OnSetPosition = null;
 
@@ -33,6 +34,7 @@ internal class MoveJoystick : IJoystick
             return instance;
         }
     }
+
     private void Awake()
     {
         instance = this;
@@ -55,6 +57,9 @@ internal class MoveJoystick : IJoystick
     protected virtual void Start()
     {
         InitTexture();
+
+        // костыль. чтобы не привязывать джойстик к танку.
+        transform.parent = null;
     }
 
     public virtual void MoveGui(float x, float y)
@@ -69,8 +74,11 @@ internal class MoveJoystick : IJoystick
         Vector2 local = new Vector2(texture.pixelInset.x, texture.pixelInset.y);
         Vector2 shift = local - circlePosition;
 
+
         if (Vector2.SqrMagnitude(shift) > IDLE_RADIUS)
         {
+            Debug.Log("MoveGuiBack. shift = " + Vector2.SqrMagnitude(shift) + "; circlePosition = " + circlePosition);
+
             Vector2 position = Vector2.Lerp(local, circlePosition, BACK_GUI_SPEED * Time.deltaTime);
             texture.pixelInset = new Rect(position.x, position.y, texture.pixelInset.width, texture.pixelInset.height);
             return true;
@@ -155,6 +163,7 @@ internal class MoveJoystick : IJoystick
 
         if (mouseDown)
         {
+            Show();
             fingerCurrPos = newPosition;
 
             float x = Mathf.Clamp(fingerCurrPos.x, touchZone.min.x, touchZone.max.x);
@@ -182,6 +191,7 @@ internal class MoveJoystick : IJoystick
         }
         else
         {
+            //Hide();
             MoveGuiBack();
         }
     }
@@ -321,18 +331,19 @@ internal class MoveJoystick : IJoystick
 
         // Возвращает корректные координаты для установки direction'a MainHero, которые проглотит MainHero.LookAt
         Vector2 vec = new Vector2(-position.x, -position.y);
-        vec = TransformByCamera(vec);
+        //vec = TransformByCamera(vec);
         vec.Normalize();
         return new Vector3(vec.x * 1000, 0, vec.y * 1000);
     }
 
     private Vector2 TransformByCamera(Vector2 src)
     {
-        return src;
-
         //MainCamera camera = MainCamera.Instance;
-        Camera camera = Camera.current;
-        float yrot = camera.transform.rotation.eulerAngles.y;
+        //Camera camera = Camera.current;
+        if (mainCamera == null)
+            mainCamera = Camera.main.transform;
+
+        float yrot = mainCamera.rotation.eulerAngles.y;
         float needRotate = defaultCameraAngle - yrot;
 
         if (Mathf.Abs(needRotate) < 1.0f)
