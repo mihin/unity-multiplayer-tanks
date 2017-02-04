@@ -29,7 +29,7 @@ internal class IJoystick : MonoBehaviour
 
     protected int ApplyScale(int p)
     {
-        return p;
+        return p/2;
         //return (int)(p * IAppConfig.Instance.ScreenCoef);
     }
 

@@ -167,9 +167,10 @@ public class TankMovement : NetworkBehaviour
 	void HandlePlayerMovement()
 	{
         float spin = 0;
+	    float moveForce = 0;
 #if UNITY_ANDROID
         Vector2 movement = HandleMovement();
-	    spin += -movement.x;
+	    spin += movement.x;
 
      //   if (movement.x > 0)
 	    //{
@@ -179,9 +180,11 @@ public class TankMovement : NetworkBehaviour
      //       spin -= 1;
      //   }
 
-	    float moveForce = movement.y;
-#else
-		if (Input.GetKey(KeyCode.LeftArrow))
+	    moveForce = -movement.y;
+#endif
+
+#if !UNITY_ANDROID || UNITY_EDITOR
+        if (Input.GetKey(KeyCode.LeftArrow))
 		{
 			spin += 1;
 		}
@@ -189,7 +192,8 @@ public class TankMovement : NetworkBehaviour
 		{
 			spin -= 1;
 		}
-		float moveForce = Input.GetAxis("Vertical");
+        if (moveForce.Equals(0f))
+		    moveForce = Input.GetAxis("Vertical");
 #endif
 
         if (moveForce > 0) { moveForce = 1; }
